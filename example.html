@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Story Structure Skeleton</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Libre+Baskerville:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="story-page">
+      <section class="title-panel scroll-scene" id="top" data-parallax="0.16">
+        <div class="title-panel__badge">INST462 Final Project</div>
+        <h1 class="title-panel__headline">
+          <span class="title-panel__line">What's</span>
+          <span class="title-panel__line">In Your</span>
+          <span class="title-panel__line title-panel__line--accent">Coffee</span>
+        </h1>
+        <a class="jump-link" href="#intro">Scroll to begin</a>
+        <figure class="hero-art">
+          <div class="hero-art__frame">
+            <img
+              class="hero-art__image"
+              src="./assets/coffee-transparent.png"
+              alt="Hand-drawn coffee cup illustration"
+            />
+          </div>
+        </figure>
+      </section>
+
+      <section class="chapter chapter--intro reveal scroll-scene" id="intro" data-parallax="0.08">
+        <div class="chapter__inner">
+          <div class="chapter__text chapter__content chapter__content--narrow">
+            <p class="eyebrow"><span class="eyebrow__accent">Introduction</span></p>
+            <p>
+              In this final project, you will design an interactive data experience that allows users to explore and uncover a story. Your project should be a single, self-contained interactive experience, in the form of either a one-page interactive story or an interactive dashboard.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="chapter chapter--split chapter--split-left reveal scroll-scene" id="involved" data-parallax="0.08">
+        <div class="chapter__inner chapter__inner--split">
+          <div class="chapter__text">
+            <div class="chapter__header">
+              <p class="eyebrow">Interaction Requirement</p>
+              <h2>Include at least one interaction</h2>
+            </div>
+
+            <p class="chapter__summary">
+              Your interaction should change what users see, understand, or discover. (e.g., filtering or selecting data to reveal patterns, comparing groups or perspectives, navigating across views or moments in time, or inputting values to explore “what-if” scenarios.)
+            </p>
+          </div>
+
+          <div class="chapter__visual">
+            <div class="actors-strip">
+              <article class="actor actor--interactive" tabindex="0">
+                <div class="actor__figure actor__figure--one" aria-hidden="true"></div>
+                <h3>Caffe Latte</h3>
+                <div class="drink-popover" role="note" aria-label="Caffe Latte nutrition information">
+                  <p class="drink-popover__title">Caffe Latte</p>
+                  <p class="drink-popover__meta">2% Milk</p>
+                  <dl class="drink-popover__stats">
+                    <div><dt>Calories</dt><dd>100</dd></div>
+                    <div><dt>Sugar</dt><dd>9g</dd></div>
+                    <div><dt>Protein</dt><dd>6g</dd></div>
+                    <div><dt>Caffeine</dt><dd>75mg</dd></div>
+                  </dl>
+                </div>
+              </article>
+
+              <article class="actor actor--interactive" tabindex="0">
+                <div class="actor__figure actor__figure--two" aria-hidden="true"></div>
+                <h3>Java Chip</h3>
+                <div class="drink-popover" role="note" aria-label="Java Chip nutrition information">
+                  <p class="drink-popover__title">Java Chip</p>
+                  <p class="drink-popover__meta">Tall Nonfat Milk</p>
+                  <dl class="drink-popover__stats">
+                    <div><dt>Calories</dt><dd>150</dd></div>
+                    <div><dt>Sugar</dt><dd>27g</dd></div>
+                    <div><dt>Protein</dt><dd>4g</dd></div>
+                    <div><dt>Caffeine</dt><dd>70mg</dd></div>
+                  </dl>
+                </div>
+              </article>
+
+              <article class="actor actor--interactive" tabindex="0">
+                <div class="actor__figure actor__figure--three" aria-hidden="true"></div>
+                <h3>White Chocolate Mocha</h3>
+                <div class="drink-popover" role="note" aria-label="White Chocolate Mocha nutrition information">
+                  <p class="drink-popover__title">White Chocolate Mocha</p>
+                  <p class="drink-popover__meta">2% Milk</p>
+                  <dl class="drink-popover__stats">
+                    <div><dt>Calories</dt><dd>200</dd></div>
+                    <div><dt>Sugar</dt><dd>29g</dd></div>
+                    <div><dt>Protein</dt><dd>7g</dd></div>
+                    <div><dt>Caffeine</dt><dd>75mg</dd></div>
+                  </dl>
+                </div>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="chapter chapter--split chapter--split-right chapter--hook reveal scroll-scene" id="proposed" data-parallax="0.08">
+        <div class="hook-illustrations" aria-hidden="true">
+          <img class="hook-drink hook-drink--tea" src="./assets/tea.png" alt="" />
+          <img class="hook-drink hook-drink--mocha" src="./assets/mocha.png" alt="" />
+        </div>
+        <div class="chapter__inner chapter__inner--split">
+          <div class="chapter__text">
+            <div class="chapter__header">
+              <p class="eyebrow">Start with a hook</p>
+              <h2>Use a question / fact <br />to invite your reader</h2>
+            </div>
+
+            <div class="proposal-grid__main proposal-grid__main--bare">
+              <div class="nutrition-stack">
+                <div class="nutrition-label nutrition-label--tea-back nutrition-label--interactive" tabindex="0" aria-label="Tazo Tea nutrition facts">
+                  <p class="nutrition-label__title">Nutrition Facts</p>
+                  <p class="nutrition-label__drink">Tazo Tea</p>
+                  <p class="nutrition-label__serving">Serving: Short</p>
+                  <div class="nutrition-label__calories">
+                    <span>Calories</span>
+                    <strong>0</strong>
+                  </div>
+                  <dl class="nutrition-label__stats">
+                    <div><dt>Total Fat</dt><dd>0g</dd></div>
+                    <div><dt>Sodium</dt><dd>0mg</dd></div>
+                    <div><dt>Carbs</dt><dd>0g</dd></div>
+                    <div><dt>Sugars</dt><dd>0g</dd></div>
+                    <div><dt>Protein</dt><dd>0g</dd></div>
+                    <div><dt>Caffeine</dt><dd>Varies</dd></div>
+                  </dl>
+                </div>
+
+                <div class="nutrition-label nutrition-label--mocha-front nutrition-label--interactive" tabindex="0" aria-label="White Chocolate Mocha nutrition facts">
+                  <p class="nutrition-label__title">Nutrition Facts</p>
+                  <p class="nutrition-label__drink">White Chocolate Mocha</p>
+                  <p class="nutrition-label__serving">Serving: 2% Milk</p>
+                  <div class="nutrition-label__calories">
+                    <span>Calories</span>
+                    <strong>510</strong>
+                  </div>
+                  <dl class="nutrition-label__stats">
+                    <div><dt>Total Fat</dt><dd>15g</dd></div>
+                    <div><dt>Sodium</dt><dd>35mg</dd></div>
+                    <div><dt>Carbs</dt><dd>330g</dd></div>
+                    <div><dt>Sugars</dt><dd>74g</dd></div>
+                    <div><dt>Protein</dt><dd>19g</dd></div>
+                    <div><dt>Caffeine</dt><dd>150mg</dd></div>
+                  </dl>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="chapter__visual">
+            <aside class="fact-box">
+              <p class="eyebrow">Did you know?</p>
+              <p>
+                The lowest-calorie drink is <strong>Tazo Tea</strong> at
+                <strong>0 calories</strong>. The highest-calorie drink is
+                <strong>White Chocolate Mocha</strong> with
+                <strong>2% milk</strong>, at <strong>510 calories</strong>.
+              </p>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <section class="chapter chapter--feature reveal scroll-scene" id="process" data-parallax="0.08">
+        <div class="chapter__inner chapter__inner--feature">
+          <div class="chapter__text">
+            <div class="chapter__header">
+              <p class="eyebrow">Dive into Data</p>
+              <h2>Build the narrative step by step</h2>
+            </div>
+
+            <div class="process-list process-list--scroll">
+              <article class="process-step is-active reveal-step">
+                <div class="process-step__number">1</div>
+                <div class="process-step__body">
+                  <h3>Analyze the data</h3>
+                </div>
+              </article>
+
+              <article class="process-step reveal-step">
+                <div class="process-step__number">2</div>
+                <div class="process-step__body">
+                  <h3>Identify a story</h3>
+                </div>
+              </article>
+
+              <article class="process-step reveal-step">
+                <div class="process-step__number">3</div>
+                <div class="process-step__body">
+                  <h3>Define how users will interact with it</h3>
+                </div>
+              </article>
+
+              <article class="process-step reveal-step">
+                <div class="process-step__number">4</div>
+                <div class="process-step__body">
+                  <h3>Create supporting visualizations</h3>
+                </div>
+              </article>
+
+              <article class="process-step reveal-step">
+                <div class="process-step__number">5</div>
+                <div class="process-step__body">
+                  <h3>Storyboard the experience</h3>
+                </div>
+              </article>
+
+              <article class="process-step reveal-step">
+                <div class="process-step__number">6</div>
+                <div class="process-step__body">
+                  <h3>Refine the flow and interaction</h3>
+                </div>
+              </article>
+            </div>
+          </div>
+
+          <div class="chapter__visual">
+            <div class="process-illustration" aria-hidden="true" data-step="1">
+              <div class="process-illustration__panel">
+                <div class="process-illustration__glow"></div>
+                <div class="process-illustration__track"></div>
+
+                <div class="process-illustration__nodes">
+                  <div class="process-node process-node--1 is-current">
+                    <span class="process-node__dot"></span>
+                    <span class="process-node__label">Analyze</span>
+                  </div>
+                  <div class="process-node process-node--2">
+                    <span class="process-node__dot"></span>
+                    <span class="process-node__label">Story</span>
+                  </div>
+                  <div class="process-node process-node--3">
+                    <span class="process-node__dot"></span>
+                    <span class="process-node__label">Interact</span>
+                  </div>
+                  <div class="process-node process-node--4">
+                    <span class="process-node__dot"></span>
+                    <span class="process-node__label">Visualize</span>
+                  </div>
+                  <div class="process-node process-node--5">
+                    <span class="process-node__dot"></span>
+                    <span class="process-node__label">Storyboard</span>
+                  </div>
+                  <div class="process-node process-node--6">
+                    <span class="process-node__dot"></span>
+                    <span class="process-node__label">Refine</span>
+                  </div>
+                </div>
+
+                <div class="process-illustration__card-stack">
+                  <div class="process-card process-card--back"></div>
+                  <div class="process-card process-card--mid"></div>
+                  <div class="process-card process-card--front">
+                    <div class="process-frame process-scene process-scene--1 is-current process-scene--image-only">
+                      <div class="process-frame__viz process-frame__viz--image">
+                        <img class="process-frame__image" src="./assets/csv.png" alt="Spreadsheet icon" />
+                      </div>
+                    </div>
+
+                    <div class="process-frame process-scene process-scene--2 process-scene--image-only">
+                      <div class="process-frame__viz process-frame__viz--image">
+                        <img class="process-frame__image" src="./assets/story.png" alt="Story icon" />
+                      </div>
+                    </div>
+
+                    <div class="process-frame process-scene process-scene--3 process-scene--image-only">
+                      <div class="process-frame__viz process-frame__viz--image">
+                        <img class="process-frame__image" src="./assets/interaction.png" alt="Interaction icon" />
+                      </div>
+                    </div>
+
+                    <div class="process-frame process-scene process-scene--4 process-scene--image-only">
+                      <div class="process-frame__viz process-frame__viz--image">
+                        <img class="process-frame__image" src="./assets/visuals.png" alt="Visuals icon" />
+                      </div>
+                    </div>
+
+                    <div class="process-frame process-scene process-scene--5 process-scene--image-only">
+                      <div class="process-frame__viz process-frame__viz--image">
+                        <img class="process-frame__image" src="./assets/sketch.png" alt="Sketch icon" />
+                      </div>
+                    </div>
+
+                    <div class="process-frame process-scene process-scene--6 process-scene--image-only">
+                      <div class="process-frame__viz process-frame__viz--image">
+                        <img class="process-frame__image" src="./assets/web.png" alt="Web icon" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="process-illustration__cursor">
+                  <span></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="chapter chapter--split chapter--split-right reveal scroll-scene" id="next" data-parallax="0.08">
+        <div class="chapter__inner chapter__inner--split">
+          <div class="chapter__text">
+            <div class="chapter__header">
+              <p class="eyebrow">What happens next?</p>
+              <h2>Explain publication, rollout, or implementation</h2>
+            </div>
+            <div class="chapter__content">
+              <p>
+                This section should answer what changes once the process is complete:
+                publication, enforcement, launch, implementation, or oversight.
+              </p>
+            </div>
+          </div>
+
+          <div class="chapter__visual">
+            <div class="visual-placeholder">
+              <p class="visual-placeholder__label">Visualization Area</p>
+              <p>Reserve this panel for a data point or a simple outcome chart.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="chapter chapter--stacked reveal scroll-scene" id="ingredients" data-parallax="0.08">
+        <div class="chapter__inner chapter__inner--stacked">
+          <div class="chapter__text">
+            <div class="chapter__header">
+              <p class="eyebrow">What is inside?</p>
+              <h2>Break down the ingredients or components</h2>
+            </div>
+            <div class="chapter__content">
+              <p>
+                Use this section for a composition chart, ingredient ranking, or
+                comparison between products. Keep the explanation short and let
+                the visualization do most of the work.
+              </p>
+            </div>
+          </div>
+
+          <div class="chapter__visual">
+            <div class="visual-placeholder">
+              <p class="visual-placeholder__label">Visualization Area</p>
+              <p>Add an ingredient breakdown chart here.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="chapter chapter--split chapter--split-left reveal scroll-scene" id="impact" data-parallax="0.08">
+        <div class="chapter__inner chapter__inner--split">
+          <div class="chapter__text">
+            <div class="chapter__header">
+              <p class="eyebrow">Why does it matter?</p>
+              <h2>Show the takeaway with one focused data story</h2>
+            </div>
+            <div class="chapter__content">
+              <p>
+                This is a good place for a single strong metric, comparison, or
+                trend line that helps the reader understand the broader impact.
+              </p>
+            </div>
+          </div>
+
+          <div class="chapter__visual">
+            <div class="visual-placeholder">
+              <p class="visual-placeholder__label">Visualization Area</p>
+              <p>Add a takeaway chart or impact visualization here.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="chapter chapter--comparison reveal scroll-scene" id="alternatives" data-parallax="0.08">
+        <div class="chapter__inner">
+          <div class="chapter__text">
+            <div class="chapter__header">
+              <p class="eyebrow">Are there other ways?</p>
+              <h2>End with a simple alternate-path comparison</h2>
+            </div>
+          </div>
+
+          <div class="alternatives">
+            <article class="alternative">
+              <h3>Alternative route one</h3>
+              <p>Use this block for a simplified route where approval works differently.</p>
+            </article>
+            <article class="alternative">
+              <h3>Alternative route two</h3>
+              <p>Use this block for a second path with fewer steps or a different role for reviewers.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="chapter chapter--cta reveal scroll-scene" id="cta" data-parallax="0.08">
+        <h2>Thanks for Watching</h2>
+        <a class="jump-link jump-link--solid" href="#top">Back to top <span aria-hidden="true">↑</span></a>
+      </section>
+    </main>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
