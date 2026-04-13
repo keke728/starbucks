@@ -1668,6 +1668,78 @@ a {
   color: var(--warm);
 }
 
+.caffeine-chart {
+  min-height: 420px;
+  align-content: start;
+  gap: 1rem;
+  padding: 1.35rem 1.4rem;
+  background:
+    linear-gradient(180deg, rgba(255, 252, 247, 0.96), rgba(247, 240, 231, 0.95));
+}
+
+.caffeine-chart__header {
+  display: grid;
+  gap: 0.2rem;
+}
+
+.caffeine-chart__meta {
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.caffeine-chart__rows {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.caffeine-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1.55fr) minmax(120px, 1fr) auto;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.caffeine-row__text,
+.caffeine-row__name,
+.caffeine-row__prep,
+.caffeine-row__value {
+  margin: 0;
+}
+
+.caffeine-row__name {
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.caffeine-row__prep {
+  margin-top: 0.12rem;
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+
+.caffeine-row__bar-wrap {
+  position: relative;
+  height: 0.8rem;
+  border-radius: 999px;
+  background: rgba(32, 58, 50, 0.1);
+  overflow: hidden;
+}
+
+.caffeine-row__bar {
+  display: block;
+  width: var(--bar-width);
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #1f6c5c, #57a488);
+}
+
+.caffeine-row__value {
+  font-size: 0.86rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
 .chapter--cta {
   text-align: center;
   padding-bottom: 3rem;
@@ -1877,6 +1949,24 @@ a {
 }
 
 @media (max-width: 640px) {
+  .caffeine-chart {
+    min-height: auto;
+    padding: 1.15rem;
+  }
+
+  .caffeine-row {
+    grid-template-columns: 1fr;
+    gap: 0.32rem;
+  }
+
+  .caffeine-row__bar-wrap {
+    order: 3;
+  }
+
+  .caffeine-row__value {
+    order: 2;
+  }
+
   .process-frame__viz--image {
     min-height: 214px;
     padding: 1.45rem 1.35rem 1.85rem;
