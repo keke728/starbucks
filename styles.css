@@ -139,7 +139,7 @@ a {
 .jump-link {
   display: inline-flex;
   align-items: center;
-  margin-top: 0.8rem;
+  margin-top: 0.05rem;
   font-family: "Caveat", cursive;
   font-size: 1.35rem;
   font-weight: 700;
@@ -399,7 +399,8 @@ a {
 
 .process-card--front {
   padding: 1rem;
-  transform: rotate(1deg);
+  --cube-tilt: 1deg;
+  transform: rotate(var(--cube-tilt));
   transition: transform 280ms ease-out, box-shadow 280ms ease-out;
 }
 
@@ -641,7 +642,7 @@ a {
 .process-frame__viz--sheet {
   display: grid;
   grid-template-columns: repeat(6, 1fr);
-  gap: 0.32rem;
+  gap: 0.24rem;
   padding: 1rem 0.95rem 0.8rem;
 }
 
@@ -661,7 +662,8 @@ a {
 }
 
 .process-frame__viz--sheet span:nth-child(4n + 1) {
-  transform: rotate(1deg);
+  --cube-tilt: 1deg;
+  transform: rotate(var(--cube-tilt));
 }
 
 .process-frame__viz--story {
@@ -814,7 +816,7 @@ a {
   height: 100%;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 0.45rem;
+  gap: 0.32rem;
   align-items: end;
 }
 
@@ -934,7 +936,7 @@ a {
   right: 18px;
   bottom: 16px;
   display: grid;
-  gap: 0.45rem;
+  gap: 0.32rem;
 }
 
 .refine-checklist span {
@@ -1021,8 +1023,15 @@ a {
   margin-inline: auto;
 }
 
+.chapter#ingredients .chapter__content {
+  max-width: 52ch;
+  margin-inline: auto;
+}
+
 .chapter#involved .chapter__text h2,
-.chapter#involved .chapter__summary {
+.chapter#involved .chapter__summary,
+.chapter#ingredients .chapter__text h2,
+.chapter#ingredients .chapter__content p {
   text-wrap: balance;
 }
 
@@ -1360,7 +1369,7 @@ a {
 .drink-popover__meta {
   margin-top: 0.2rem;
   font-size: 0.74rem;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--warm);
 }
@@ -1551,7 +1560,13 @@ a {
   font-weight: 700;
 }
 
-.fact-box strong {
+.fact-box strong,
+.chapter__content strong,
+.chapter__summary strong,
+.lead strong,
+.process-step__body strong,
+.alternative strong,
+.chapter--cta strong {
   color: var(--accent);
   padding: 0.08rem 0.38rem;
   border-radius: 999px;
@@ -1669,17 +1684,22 @@ a {
 }
 
 .caffeine-chart {
+  position: relative;
   min-height: 420px;
   align-content: start;
   gap: 1rem;
-  padding: 1.35rem 1.4rem;
-  background:
-    linear-gradient(180deg, rgba(255, 252, 247, 0.96), rgba(247, 240, 231, 0.95));
+  padding: 1.45rem 1.4rem 2.1rem;
+  border: 1px solid var(--line);
+  border-radius: 0;
+  background: var(--panel);
+  box-shadow: var(--shadow);
+  overflow: visible;
 }
+
 
 .caffeine-chart__header {
   display: grid;
-  gap: 0.2rem;
+  gap: 0.1rem;
 }
 
 .caffeine-chart__meta {
@@ -1690,7 +1710,7 @@ a {
 
 .caffeine-chart__rows {
   display: grid;
-  gap: 0.55rem;
+  gap: 0.42rem;
 }
 
 .caffeine-row {
@@ -1731,7 +1751,46 @@ a {
   width: var(--bar-width);
   height: 100%;
   border-radius: inherit;
-  background: linear-gradient(90deg, #1f6c5c, #57a488);
+  background: #5b8578;
+  border: 1px solid rgba(29, 38, 36, 0.1);
+  box-shadow: 0 0 0 rgba(91, 133, 120, 0);
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+
+#next.is-chart-animated .caffeine-row__bar {
+  animation: caffeineBarFill 1.15s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+#next.is-chart-animated .caffeine-row:nth-child(1) .caffeine-row__bar { animation-delay: 0.18s; }
+#next.is-chart-animated .caffeine-row:nth-child(2) .caffeine-row__bar { animation-delay: 0.38s; }
+#next.is-chart-animated .caffeine-row:nth-child(3) .caffeine-row__bar { animation-delay: 0.58s; }
+#next.is-chart-animated .caffeine-row:nth-child(4) .caffeine-row__bar { animation-delay: 0.78s; }
+#next.is-chart-animated .caffeine-row:nth-child(5) .caffeine-row__bar { animation-delay: 0.98s; }
+#next.is-chart-animated .caffeine-row:nth-child(6) .caffeine-row__bar { animation-delay: 1.18s; }
+#next.is-chart-animated .caffeine-row:nth-child(7) .caffeine-row__bar { animation-delay: 1.38s; }
+#next.is-chart-animated .caffeine-row:nth-child(8) .caffeine-row__bar { animation-delay: 1.58s; }
+#next.is-chart-animated .caffeine-row:nth-child(9) .caffeine-row__bar { animation-delay: 1.78s; }
+#next.is-chart-animated .caffeine-row:nth-child(10) .caffeine-row__bar { animation-delay: 1.98s; }
+
+@keyframes caffeineBarFill {
+  0% {
+    transform: scaleX(0);
+    filter: saturate(0.72) brightness(0.98);
+    box-shadow: 0 0 0 rgba(91, 133, 120, 0);
+  }
+
+  68% {
+    transform: scaleX(1.03);
+    filter: saturate(0.84) brightness(1.02);
+    box-shadow: 0 0 10px rgba(91, 133, 120, 0.15);
+  }
+
+  100% {
+    transform: scaleX(1);
+    filter: saturate(1) brightness(1);
+    box-shadow: 0 0 0 rgba(91, 133, 120, 0);
+  }
 }
 
 .caffeine-row__value {
@@ -1740,13 +1799,508 @@ a {
   white-space: nowrap;
 }
 
+.nutrition-breakdown-chart,
+.sugar-impact-chart {
+  min-height: 340px;
+  align-content: start;
+  gap: 0.56rem;
+  padding: 0.9rem 0.95rem 1rem;
+  border: 1px solid var(--line);
+  border-radius: 0;
+  background: var(--panel);
+  box-shadow: var(--shadow);
+}
+
+.nutrition-breakdown-chart {
+  width: min(100%, 58ch);
+  max-width: min(100%, 58ch);
+  min-height: auto;
+  justify-self: center;
+  align-content: center;
+}
+
+.nutrition-breakdown-chart__body {
+  margin-block: auto;
+}
+
+.nutrition-breakdown-chart__header,
+.sugar-impact-chart__header {
+  display: grid;
+  gap: 0.2rem;
+}
+
+.nutrition-breakdown-chart__meta,
+.sugar-impact-chart__meta {
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.nutrition-breakdown-chart__hero {
+  display: grid;
+  gap: 0.08rem;
+  width: min(100%, 24.5rem);
+  margin: 0 auto;
+  margin-right: calc(100px + 0.56rem);
+  justify-items: center;
+  text-align: center;
+}
+
+.nutrition-breakdown-chart__total,
+.nutrition-breakdown-chart__sub,
+.nutrition-breakdown-item__label,
+.nutrition-breakdown-item__meta,
+.sugar-impact-row__name,
+.sugar-impact-row__prep,
+.sugar-impact-row__value {
+  margin: 0;
+}
+
+.nutrition-breakdown-chart__total {
+  font-size: clamp(1.05rem, 2.5vw, 1.38rem);
+  line-height: 1;
+  font-weight: 700;
+}
+
+.nutrition-breakdown-chart__sub {
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+
+.nutrition-breakdown-chart__body {
+  display: grid;
+  grid-template-columns: minmax(0, 2.15fr) minmax(100px, 0.36fr);
+  gap: 0.92rem;
+  align-items: center;
+}
+
+.nutrition-cubes {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 0.28rem;
+  width: min(100%, 24.5rem);
+  margin-inline: auto;
+}
+
+.nutrition-cube {
+  aspect-ratio: 1;
+  border-radius: 0.18rem;
+  border: 1px solid rgba(29, 38, 36, 0.08);
+  box-shadow: 1px 1px 0 rgba(79, 60, 37, 0.08);
+  background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0));
+  --cube-tilt: -1deg;
+  transform: rotate(var(--cube-tilt));
+  transition: transform 180ms ease, box-shadow 180ms ease, filter 180ms ease;
+}
+
+.nutrition-cube:nth-child(2n) {
+  --cube-tilt: 1deg;
+  transform: rotate(var(--cube-tilt));
+}
+
+.nutrition-cube:nth-child(3n) {
+  --cube-tilt: -0.4deg;
+  transform: translateY(1px) rotate(var(--cube-tilt));
+}
+
+.nutrition-cubes:hover .nutrition-cube {
+  box-shadow: 1.5px 1.5px 0 rgba(79, 60, 37, 0.1);
+  filter: brightness(0.98);
+  animation: nutritionCubeShake 0.34s ease-in-out;
+}
+
+.nutrition-cubes:hover .nutrition-cube:nth-child(6n + 1) {
+  animation-delay: 0s;
+}
+
+.nutrition-cubes:hover .nutrition-cube:nth-child(6n + 2) {
+  animation-delay: 0.04s;
+}
+
+.nutrition-cubes:hover .nutrition-cube:nth-child(6n + 3) {
+  animation-delay: 0.08s;
+}
+
+.nutrition-cubes:hover .nutrition-cube:nth-child(6n + 4) {
+  animation-delay: 0.12s;
+}
+
+.nutrition-cubes:hover .nutrition-cube:nth-child(6n + 5) {
+  animation-delay: 0.16s;
+}
+
+.nutrition-cubes:hover .nutrition-cube:nth-child(6n + 6) {
+  animation-delay: 0.2s;
+}
+
+@keyframes nutritionCubeShake {
+  0%,
+  100% {
+    transform: translateX(0) rotate(var(--cube-tilt, -1deg));
+  }
+
+  25% {
+    transform: translateX(-1px) rotate(calc(var(--cube-tilt, -1deg) - 1deg));
+  }
+
+  50% {
+    transform: translateX(1.5px) rotate(calc(var(--cube-tilt, -1deg) + 1deg));
+  }
+
+  75% {
+    transform: translateX(-0.5px) rotate(calc(var(--cube-tilt, -1deg) - 0.5deg));
+  }
+}
+
+.nutrition-cube--sugar { background: #cd8568; }
+.nutrition-cube--fat { background: #b18a6a; }
+.nutrition-cube--protein { background: #5b8578; }
+.nutrition-cube--other { background: #e8dfd3; }
+
+.nutrition-breakdown-chart__legend,
+.sugar-impact-chart__rows {
+  display: grid;
+  gap: 0.38rem;
+}
+
+.nutrition-breakdown-chart__legend {
+  margin-left: 0.5rem;
+}
+
+.nutrition-breakdown-item,
+.sugar-impact-row {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: start;
+  gap: 0.42rem;
+}
+
+.nutrition-breakdown-item__swatch {
+  width: 0.7rem;
+  height: 0.7rem;
+  border-radius: 999px;
+  margin-top: 0.18rem;
+}
+
+.nutrition-breakdown-item__swatch--sugar { background: #cd8568; }
+.nutrition-breakdown-item__swatch--fat { background: #b18a6a; }
+.nutrition-breakdown-item__swatch--protein { background: #5b8578; }
+.nutrition-breakdown-item__swatch--other { background: #e8dfd3; }
+
+.nutrition-breakdown-item__label,
+.sugar-impact-row__name {
+  font-weight: 700;
+  line-height: 1.1;
+  font-size: 0.72rem;
+}
+
+.nutrition-breakdown-item__meta,
+.sugar-impact-row__prep {
+  margin-top: 0.08rem;
+  font-size: 0.72rem;
+  color: var(--muted);
+}
+
+.sugar-impact-row {
+  grid-template-columns: minmax(0, 1.6fr) minmax(120px, 1fr) auto;
+  align-items: center;
+}
+
+.sugar-impact-row__bar-wrap {
+  position: relative;
+  height: 0.8rem;
+  border-radius: 999px;
+  background: rgba(216, 106, 67, 0.12);
+  overflow: hidden;
+}
+
+.sugar-impact-row__bar {
+  display: block;
+  width: var(--bar-width);
+  height: 100%;
+  border-radius: inherit;
+  transform: scaleX(0);
+  transform-origin: left center;
+  background: #c88268;
+  border: 1px solid rgba(29, 38, 36, 0.1);
+}
+
+#impact.is-chart-animated .sugar-impact-row__bar {
+  animation: sugarBarFill 1s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+#impact.is-chart-animated .sugar-impact-row:nth-child(1) .sugar-impact-row__bar { animation-delay: 0.14s; }
+#impact.is-chart-animated .sugar-impact-row:nth-child(2) .sugar-impact-row__bar { animation-delay: 0.28s; }
+#impact.is-chart-animated .sugar-impact-row:nth-child(3) .sugar-impact-row__bar { animation-delay: 0.42s; }
+#impact.is-chart-animated .sugar-impact-row:nth-child(4) .sugar-impact-row__bar { animation-delay: 0.56s; }
+#impact.is-chart-animated .sugar-impact-row:nth-child(5) .sugar-impact-row__bar { animation-delay: 0.7s; }
+#impact.is-chart-animated .sugar-impact-row:nth-child(6) .sugar-impact-row__bar { animation-delay: 0.84s; }
+#impact.is-chart-animated .sugar-impact-row:nth-child(7) .sugar-impact-row__bar { animation-delay: 0.98s; }
+#impact.is-chart-animated .sugar-impact-row:nth-child(8) .sugar-impact-row__bar { animation-delay: 1.12s; }
+
+@keyframes sugarBarFill {
+  0% {
+    transform: scaleX(0);
+    filter: saturate(0.72) brightness(0.98);
+  }
+
+  72% {
+    transform: scaleX(1.03);
+    filter: saturate(0.84) brightness(1.01);
+  }
+
+  100% {
+    transform: scaleX(1);
+    filter: saturate(1) brightness(1);
+  }
+}
+
+.sugar-impact-row__value {
+  font-size: 0.86rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+
+.smoothie-compare {
+  min-height: 390px;
+  align-content: start;
+  gap: 0.8rem;
+  padding: 1.15rem 1.2rem 1.25rem;
+}
+
+.smoothie-compare__header {
+  display: grid;
+  gap: 0.18rem;
+}
+
+.smoothie-compare__meta {
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.smoothie-compare__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.8rem;
+}
+
+.smoothie-card {
+  display: grid;
+  gap: 0.8rem;
+  padding: 0.95rem 0.85rem 0.9rem;
+  border: 1px solid var(--line);
+  background: rgba(251, 247, 240, 0.82);
+  box-shadow: 3px 4px 0 rgba(79, 60, 37, 0.06);
+  transform: rotate(-0.6deg);
+}
+
+.smoothie-card:nth-child(2) {
+  transform: rotate(0.45deg);
+}
+
+.smoothie-card:nth-child(3) {
+  transform: rotate(-0.25deg);
+}
+
+.smoothie-card__top {
+  display: grid;
+  justify-items: center;
+  text-align: center;
+  gap: 0.2rem;
+  padding-bottom: 0.55rem;
+  border-bottom: 1px dashed rgba(29, 38, 36, 0.16);
+}
+
+.smoothie-card__cup {
+  position: relative;
+  width: 2.8rem;
+  height: 3.6rem;
+  margin-bottom: 0.25rem;
+}
+
+.smoothie-card__drink {
+  position: absolute;
+  inset: 0.48rem 0.32rem 0.1rem;
+  border: 2px solid rgba(29, 38, 36, 0.22);
+  border-top: 0;
+  border-radius: 0 0 0.85rem 0.85rem;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.28), rgba(255, 255, 255, 0) 30%), var(--drink-color, #d6b18a);
+  clip-path: polygon(14% 0, 86% 0, 73% 100%, 27% 100%);
+}
+
+.smoothie-card__lid {
+  position: absolute;
+  inset: 0 0.28rem auto;
+  height: 0.72rem;
+  border-radius: 999px 999px 0.45rem 0.45rem;
+  background: #ece4d8;
+  border: 2px solid rgba(29, 38, 36, 0.18);
+}
+
+.smoothie-card__straw {
+  position: absolute;
+  width: 0.2rem;
+  height: 1.35rem;
+  top: -0.22rem;
+  right: 0.66rem;
+  background: var(--straw-color, #6e9b78);
+  border-radius: 999px;
+  transform: rotate(8deg);
+}
+
+.smoothie-card__top h3,
+.smoothie-card__top p,
+.smoothie-stack__item p {
+  margin: 0;
+}
+
+.smoothie-card__top h3 {
+  font-size: 1rem;
+  line-height: 1.08;
+}
+
+.smoothie-card__top p {
+  font-size: 0.74rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.smoothie-stack {
+  display: grid;
+  gap: 0.64rem;
+}
+
+.smoothie-stack__bar {
+  display: flex;
+  min-height: 1.5rem;
+  padding: 0.14rem;
+  border-radius: 999px;
+  overflow: hidden;
+  background: rgba(29, 38, 36, 0.06);
+  border: 1px solid rgba(29, 38, 36, 0.08);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.55);
+}
+
+.smoothie-stack__segment {
+  width: var(--segment-size, 0%);
+  min-width: 0;
+  position: relative;
+}
+
+.smoothie-stack__segment + .smoothie-stack__segment {
+  border-left: 1px solid rgba(251, 247, 240, 0.55);
+}
+
+.smoothie-stack__segment--a {
+  background: linear-gradient(180deg, #d6a574 0%, #c99566 100%);
+}
+
+.smoothie-stack__segment--c {
+  background: linear-gradient(180deg, #e19084 0%, #d77d70 100%);
+}
+
+.smoothie-stack__segment--calcium {
+  background: linear-gradient(180deg, #95afa1 0%, #86a393 100%);
+}
+
+.smoothie-stack__legend {
+  display: grid;
+  gap: 0.36rem;
+}
+
+.smoothie-stack__item {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 0.46rem;
+  align-items: center;
+}
+
+.smoothie-stack__item p {
+  margin: 0;
+  font-size: 0.73rem;
+  color: var(--muted);
+  letter-spacing: 0.01em;
+}
+
+.smoothie-stack__swatch {
+  width: 0.7rem;
+  height: 0.7rem;
+  border-radius: 999px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45);
+}
+
+.smoothie-stack__swatch--a {
+  background: #c99566;
+}
+
+.smoothie-stack__swatch--c {
+  background: #d77d70;
+}
+
+.smoothie-stack__swatch--calcium {
+  background: #86a393;
+}
+
+.smoothie-card--banana {
+  --drink-color: #b78b6a;
+  --straw-color: #7f9f59;
+}
+
+.smoothie-card--banana .smoothie-metric__value {
+  color: #9b6644;
+}
+
+.smoothie-card--mango {
+  --drink-color: #d3a15f;
+  --straw-color: #6d9a72;
+}
+
+.smoothie-card--mango .smoothie-metric__value {
+  color: #c17d46;
+}
+
+.smoothie-card--strawberry {
+  --drink-color: #cf918a;
+  --straw-color: #7aa06d;
+}
+
+.smoothie-card--strawberry .smoothie-metric__value {
+  color: #b86c67;
+}
 .chapter--cta {
   text-align: center;
-  padding-bottom: 3rem;
+  padding-bottom: 1.4rem;
 }
 
 .chapter--cta .jump-link {
   justify-self: center;
+}
+
+.page-credit {
+  margin: 1rem 0 0;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.title-panel .page-credit {
+  grid-column: 1;
+  grid-row: auto;
+  align-self: start;
+  position: relative;
+  top: -0.05rem;
+  left: 0;
+  margin: 0;
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  z-index: 1;
+  white-space: nowrap;
+  pointer-events: none;
 }
 
 .reveal {
@@ -1779,6 +2333,7 @@ a {
 .title-panel__badge,
 .title-panel h1,
 .title-panel__intro,
+.title-panel .page-credit,
 .title-panel .jump-link {
   --text-progress-local: var(--text-progress-delayed, 0);
   --text-offset-y: 48px;
@@ -1809,6 +2364,7 @@ a {
 }
 
 .title-panel__intro,
+.title-panel .page-credit,
 .proposal-grid__main p,
 .fact-box p,
 .chapter__content,
@@ -1849,7 +2405,29 @@ a {
     scale(calc(0.996 + (var(--visual-progress, 0) * 0.004)));
 }
 
+
+@media (max-width: 900px) {
+  .smoothie-compare__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .smoothie-card {
+    transform: none;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
+  .caffeine-row__bar,
+  .sugar-impact-row__bar {
+    animation: none;
+    transform: scaleX(1);
+  }
+
+  .nutrition-breakdown-chart__body {
+    grid-template-columns: 1fr;
+    gap: 0.85rem;
+  }
+
   html {
     scroll-behavior: auto;
   }
@@ -1869,6 +2447,7 @@ a {
   .title-panel__badge,
   .title-panel h1,
   .title-panel__intro,
+  .title-panel .page-credit,
   .title-panel .jump-link,
   .title-panel::after,
   .hero-art {
@@ -1951,12 +2530,20 @@ a {
 @media (max-width: 640px) {
   .caffeine-chart {
     min-height: auto;
-    padding: 1.15rem;
+    padding: 1.15rem 1rem 1.5rem;
   }
 
-  .caffeine-row {
+
+  .caffeine-row,
+  .sugar-impact-row {
     grid-template-columns: 1fr;
     gap: 0.32rem;
+  }
+
+  .nutrition-breakdown-chart,
+  .sugar-impact-chart {
+    min-height: auto;
+    padding: 1.15rem;
   }
 
   .caffeine-row__bar-wrap {

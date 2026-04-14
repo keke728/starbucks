@@ -5,6 +5,10 @@ const processScenes = [...document.querySelectorAll("#process .process-scene")];
 const processIllustration = document.querySelector("#process .process-illustration");
 const sections = [...document.querySelectorAll("main section[id]")];
 const scrollScenes = document.querySelectorAll(".scroll-scene");
+const caffeineSection = document.querySelector("#next");
+const ingredientsSection = document.querySelector("#ingredients");
+const impactSection = document.querySelector("#impact");
+
 
 const PROCESS_TEXT_REVEAL_DELAY = 120;
 const PROCESS_PANEL_REVEAL_DELAY = 520;
@@ -199,6 +203,24 @@ function updateScrollScenes() {
   });
 }
 
+function toggleChartAnimation(section) {
+  if (!section) {
+    return;
+  }
+
+  const rect = section.getBoundingClientRect();
+  const viewportHeight = window.innerHeight;
+  const isVisible = rect.top <= viewportHeight * 0.72 && rect.bottom >= viewportHeight * 0.28;
+
+  section.classList.toggle("is-chart-animated", isVisible);
+}
+
+function updateSectionChartAnimations() {
+  toggleChartAnimation(caffeineSection);
+  toggleChartAnimation(ingredientsSection);
+  toggleChartAnimation(impactSection);
+}
+
 function clamp(value, min, max) {
   return Math.min(max, Math.max(min, value));
 }
@@ -234,6 +256,7 @@ function onScroll() {
   updateCurrentSection();
   updateScrollScenes();
   updateSectionProgress();
+  updateSectionChartAnimations();
 }
 
 window.addEventListener("scroll", onScroll, { passive: true });
