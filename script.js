@@ -8,6 +8,7 @@ const scrollScenes = document.querySelectorAll(".scroll-scene");
 const caffeineSection = document.querySelector("#next");
 const ingredientsSection = document.querySelector("#ingredients");
 const impactSection = document.querySelector("#impact");
+const builderInteractiveSection = document.querySelector("#alternatives");
 
 
 const PROCESS_TEXT_REVEAL_DELAY = 120;
@@ -215,10 +216,28 @@ function toggleChartAnimation(section) {
   section.classList.toggle("is-chart-animated", isVisible);
 }
 
+function toggleBuilderActive(section) {
+  if (!section) {
+    return;
+  }
+
+  const rect = section.getBoundingClientRect();
+  const viewportHeight = window.innerHeight;
+  const isVisible = rect.top <= viewportHeight * 0.72 && rect.bottom >= viewportHeight * 0.28;
+  const wasVisible = section.classList.contains("is-builder-active");
+
+  section.classList.toggle("is-builder-active", isVisible);
+
+  if (isVisible && !wasVisible) {
+    playBuilderFillAnimation();
+  }
+}
+
 function updateSectionChartAnimations() {
   toggleChartAnimation(caffeineSection);
   toggleChartAnimation(ingredientsSection);
   toggleChartAnimation(impactSection);
+  toggleBuilderActive(builderInteractiveSection);
 }
 
 function clamp(value, min, max) {
@@ -257,6 +276,131 @@ function onScroll() {
   updateScrollScenes();
   updateSectionProgress();
   updateSectionChartAnimations();
+}
+
+const builderSection = document.querySelector("#alternatives");
+const builderGroups = [...document.querySelectorAll("[data-builder-group]")];
+const builderName = document.querySelector("[data-builder-name]");
+const builderCard = document.querySelector(".builder-card");
+const builderStatCalories = document.querySelector('[data-stat="calories"]');
+const builderStatSugar = document.querySelector('[data-stat="sugar"]');
+const builderStatCaffeine = document.querySelector('[data-stat="caffeine"]');
+const builderLayers = {
+  coffee: document.querySelector('[data-layer="coffee"]'),
+  milk: document.querySelector('[data-layer="milk"]'),
+  syrup: document.querySelector('[data-layer="syrup"]'),
+  topping: document.querySelector('[data-layer="topping"]'),
+};
+
+const builderConfig = {
+  base: {
+    "cold-brew": { label: "Cold Brew", calories: 5, sugar: 0, caffeine: 205, layer: 42 },
+    latte: { label: "Latte", calories: 110, sugar: 14, caffeine: 150, layer: 34 },
+    mocha: { label: "Mocha", calories: 190, sugar: 24, caffeine: 175, layer: 30 },
+  },
+  milk: {
+    nonfat: { label: "Nonfat Milk", calories: 80, sugar: 12, caffeine: 0, layer: 24 },
+    soymilk: { label: "Soymilk", calories: 100, sugar: 9, caffeine: 0, layer: 24 },
+    "two-percent": { label: "2% Milk", calories: 120, sugar: 12, caffeine: 0, layer: 24 },
+  },
+  syrup: {
+    none: { label: "No Syrup", calories: 0, sugar: 0, caffeine: 0, layer: 0 },
+    vanilla: { label: "Vanilla", calories: 20, sugar: 5, caffeine: 0, layer: 8 },
+    "mocha-syrup": { label: "Mocha", calories: 60, sugar: 8, caffeine: 5, layer: 10 },
+  },
+  topping: {
+    none: { label: "No Topping", calories: 0, sugar: 0, caffeine: 0, layer: 0 },
+    foam: { label: "Foam", calories: 15, sugar: 2, caffeine: 0, layer: 8 },
+    whip: { label: "Whipped Cream", calories: 80, sugar: 1, caffeine: 0, layer: 12 },
+  },
+};
+
+const builderState = {
+  base: "cold-brew",
+  milk: "nonfat",
+  syrup: "none",
+  topping: "none",
+};
+
+function playBuilderFillAnimation() {
+  if (!builderSection || !builderCard || !builderSection.classList.contains("is-builder-active")) {
+    return;
+  }
+
+  builderCard.classList.remove("is-refilling");
+  window.requestAnimationFrame(() => builderCard.classList.add("is-refilling"));
+}
+
+function updateBuilder({ animate = false } = {}) {
+  if (!builderSection) {
+    return;
+  }
+
+  const base = builderConfig.base[builderState.base];
+  const milk = builderConfig.milk[builderState.milk];
+  const syrup = builderConfig.syrup[builderState.syrup];
+  const topping = builderConfig.topping[builderState.topping];
+  const selections = [base, milk, syrup, topping];
+
+  const calories = selections.reduce((sum, item) => sum + item.calories, 0);
+  const sugar = selections.reduce((sum, item) => sum + item.sugar, 0);
+  const caffeine = selections.reduce((sum, item) => sum + item.caffeine, 0);
+  const totalHeight = selections.reduce((sum, item) => sum + item.layer, 0) || 1;
+
+  if (animate) {
+    playBuilderFillAnimation();
+  }
+
+  if (builderName) {
+    const suffix = syrup.label === 'No Syrup' && topping.label === 'No Topping'
+      ? `${milk.label}`
+      : `${milk.label}, ${syrup.label === 'No Syrup' ? 'no syrup' : syrup.label}, ${topping.label === 'No Topping' ? 'no topping' : topping.label}`;
+    builderName.textContent = `${base.label} with ${suffix}`;
+  }
+
+  if (builderStatCalories) builderStatCalories.textContent = String(calories);
+  if (builderStatSugar) builderStatSugar.textContent = `${sugar}g`;
+  if (builderStatCaffeine) builderStatCaffeine.textContent = `${caffeine}mg`;
+
+  const layerValues = {
+    coffee: base.layer,
+    milk: milk.layer,
+    syrup: syrup.layer,
+    topping: topping.layer,
+  };
+
+  let offset = 0;
+  ["coffee", "milk", "syrup", "topping"].forEach((key) => {
+    const layer = builderLayers[key];
+    if (!layer) return;
+    const height = layerValues[key];
+    const heightPct = (height / totalHeight) * 100;
+    layer.style.height = `${heightPct}%`;
+    layer.style.bottom = `${offset}%`;
+    layer.style.opacity = height > 0 ? '1' : '0';
+    offset += heightPct;
+  });
+}
+
+if (builderGroups.length) {
+  builderGroups.forEach((group) => {
+    group.addEventListener('click', (event) => {
+      const button = event.target.closest('.builder-option');
+      if (!button) return;
+
+      const groupName = group.dataset.builderGroup;
+      const value = button.dataset.builderValue;
+      if (!groupName || !value) return;
+
+      builderState[groupName] = value;
+      [...group.querySelectorAll('.builder-option')].forEach((option) => {
+        option.classList.toggle('is-selected', option === button);
+      });
+      updateBuilder({ animate: true });
+    });
+  });
+
+  updateBuilder({ animate: false });
 }
 
 window.addEventListener("scroll", onScroll, { passive: true });

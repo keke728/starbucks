@@ -11,6 +11,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="./styles.css" />
+    <link rel="icon" type="image/png" href="./assets/star.png" />
   </head>
   <body>
     <main class="story-page">
@@ -27,7 +28,7 @@
           <div class="hero-art__frame">
             <img
               class="hero-art__image"
-              src="./assets/coffee-transparent.png"
+              src="./assets/star.png"
               alt="Hand-drawn coffee cup illustration"
             />
           </div>
@@ -528,8 +529,8 @@
             <div class="chapter__content">
               <p>
                 With the same <strong>soymilk base</strong>, these smoothies can be compared more directly.
-                <strong>Strawberry Banana</strong> stands out for vitamin C, <strong>Orange Mango Banana</strong>
-                delivers the most vitamin A, and <strong>Banana Chocolate</strong> leads in calcium.
+                Strawberry Banana stands out for vitamin C, Orange Mango Banana
+                delivers the most vitamin A, and Banana Chocolate leads in calcium.
               </p>
             </div>
           </div>
@@ -615,24 +616,101 @@
         </div>
       </section>
 
-      <section class="chapter chapter--comparison reveal scroll-scene" id="alternatives" data-parallax="0.08">
-        <div class="chapter__inner">
+      <section class="chapter chapter--builder reveal scroll-scene" id="alternatives" data-parallax="0.08">
+        <div class="chapter__inner chapter__inner--split builder-layout">
           <div class="chapter__text">
             <div class="chapter__header">
-              <p class="eyebrow">Are there other ways?</p>
-              <h2>End with a simple alternate-path comparison</h2>
+              <p class="eyebrow">Build your own</p>
+              <h2>Create your own coffee</h2>
+            </div>
+            <div class="chapter__content">
+              <p>
+                Pick a base, milk, syrup, and topping to see how each addition transforms the drink.
+                Watch the chart fill up as your cup gets richer, with calories, sugar, and caffeine updating along the way.
+              </p>
+            </div>
+
+            <div class="builder-controls" aria-label="Build your own coffee">
+              <div class="builder-control">
+                <p class="builder-control__label">Base</p>
+                <div class="builder-options" data-builder-group="base">
+                  <button class="builder-option is-selected" type="button" data-builder-value="cold-brew">Cold Brew</button>
+                  <button class="builder-option" type="button" data-builder-value="latte">Latte</button>
+                  <button class="builder-option" type="button" data-builder-value="mocha">Mocha</button>
+                </div>
+              </div>
+
+              <div class="builder-control">
+                <p class="builder-control__label">Milk</p>
+                <div class="builder-options" data-builder-group="milk">
+                  <button class="builder-option is-selected" type="button" data-builder-value="nonfat">Nonfat</button>
+                  <button class="builder-option" type="button" data-builder-value="soymilk">Soymilk</button>
+                  <button class="builder-option" type="button" data-builder-value="two-percent">2% Milk</button>
+                </div>
+              </div>
+
+              <div class="builder-control">
+                <p class="builder-control__label">Syrup</p>
+                <div class="builder-options" data-builder-group="syrup">
+                  <button class="builder-option is-selected" type="button" data-builder-value="none">None</button>
+                  <button class="builder-option" type="button" data-builder-value="vanilla">Vanilla</button>
+                  <button class="builder-option" type="button" data-builder-value="mocha-syrup">Mocha</button>
+                </div>
+              </div>
+
+              <div class="builder-control">
+                <p class="builder-control__label">Topping</p>
+                <div class="builder-options" data-builder-group="topping">
+                  <button class="builder-option is-selected" type="button" data-builder-value="none">None</button>
+                  <button class="builder-option" type="button" data-builder-value="foam">Foam</button>
+                  <button class="builder-option" type="button" data-builder-value="whip">Whipped Cream</button>
+                </div>
+              </div>
             </div>
           </div>
 
-          <div class="alternatives">
-            <article class="alternative">
-              <h3>Alternative route one</h3>
-              <p>Use this block for a simplified route where approval works differently.</p>
-            </article>
-            <article class="alternative">
-              <h3>Alternative route two</h3>
-              <p>Use this block for a second path with fewer steps or a different role for reviewers.</p>
-            </article>
+          <div class="chapter__visual">
+            <div class="visual-placeholder builder-card">
+              <div class="builder-card__topline">
+                <p class="visual-placeholder__label">Custom Cup</p>
+                <p class="builder-card__name" data-builder-name>Cold Brew with Nonfat Milk</p>
+              </div>
+
+              <div class="builder-card__visuals">
+                <div class="coffee-builder-cup" aria-hidden="true">
+                  <div class="coffee-builder-cup__lid"></div>
+                  <div class="coffee-builder-cup__body">
+                    <span class="coffee-builder-cup__layer coffee-builder-cup__layer--coffee" data-layer="coffee"></span>
+                    <span class="coffee-builder-cup__layer coffee-builder-cup__layer--milk" data-layer="milk"></span>
+                    <span class="coffee-builder-cup__layer coffee-builder-cup__layer--syrup" data-layer="syrup"></span>
+                    <span class="coffee-builder-cup__layer coffee-builder-cup__layer--topping" data-layer="topping"></span>
+                  </div>
+                  <div class="coffee-builder-cup__badge">DATA CUP</div>
+                </div>
+
+                <div class="builder-stats">
+                  <div class="builder-stat">
+                    <p class="builder-stat__label">Calories</p>
+                    <p class="builder-stat__value" data-stat="calories">85</p>
+                  </div>
+                  <div class="builder-stat">
+                    <p class="builder-stat__label">Sugar</p>
+                    <p class="builder-stat__value" data-stat="sugar">12g</p>
+                  </div>
+                  <div class="builder-stat">
+                    <p class="builder-stat__label">Caffeine</p>
+                    <p class="builder-stat__value" data-stat="caffeine">205mg</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="builder-legend">
+                <div class="builder-legend__item"><span class="builder-legend__swatch builder-legend__swatch--coffee"></span><p>Base</p></div>
+                <div class="builder-legend__item"><span class="builder-legend__swatch builder-legend__swatch--milk"></span><p>Milk</p></div>
+                <div class="builder-legend__item"><span class="builder-legend__swatch builder-legend__swatch--syrup"></span><p>Syrup</p></div>
+                <div class="builder-legend__item"><span class="builder-legend__swatch builder-legend__swatch--topping"></span><p>Topping</p></div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
