@@ -2411,41 +2411,24 @@ a {
   right: 0;
   bottom: 0;
   height: var(--layer-height, 0%);
-  transform-origin: bottom center;
-  transition: height 260ms ease, opacity 180ms ease;
+  opacity: 1;
+  transition: height 520ms cubic-bezier(0.22, 0.61, 0.36, 1), opacity 220ms ease;
 }
 
-.chapter#alternatives.is-builder-active .builder-card.is-refilling .coffee-builder-cup__layer {
-  animation: builderLayerRise 880ms cubic-bezier(0.22, 0.61, 0.36, 1);
+.chapter#alternatives.is-builder-active .builder-card.is-refilling .coffee-builder-cup__layer--coffee {
+  transition-delay: 0ms;
 }
 
 .chapter#alternatives.is-builder-active .builder-card.is-refilling .coffee-builder-cup__layer--milk {
-  animation-delay: 80ms;
+  transition-delay: 90ms;
 }
 
 .chapter#alternatives.is-builder-active .builder-card.is-refilling .coffee-builder-cup__layer--syrup {
-  animation-delay: 170ms;
+  transition-delay: 180ms;
 }
 
 .chapter#alternatives.is-builder-active .builder-card.is-refilling .coffee-builder-cup__layer--topping {
-  animation-delay: 250ms;
-}
-
-@keyframes builderLayerRise {
-  0% {
-    transform: scaleY(0.2);
-    opacity: 0.3;
-  }
-
-  65% {
-    transform: scaleY(1.04);
-    opacity: 1;
-  }
-
-  100% {
-    transform: scaleY(1);
-    opacity: 1;
-  }
+  transition-delay: 270ms;
 }
 
 .coffee-builder-cup__layer--coffee {

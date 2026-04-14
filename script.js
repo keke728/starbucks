@@ -229,7 +229,7 @@ function toggleBuilderActive(section) {
   section.classList.toggle("is-builder-active", isVisible);
 
   if (isVisible && !wasVisible) {
-    playBuilderFillAnimation();
+    updateBuilder({ animate: true });
   }
 }
 
@@ -322,13 +322,39 @@ const builderState = {
   topping: "none",
 };
 
-function playBuilderFillAnimation() {
+let builderAnimationTimeout = null;
+
+function applyBuilderLayerHeights(layerHeights) {
+  let offset = 0;
+  ["coffee", "milk", "syrup", "topping"].forEach((key) => {
+    const layer = builderLayers[key];
+    if (!layer) return;
+    const heightPct = layerHeights[key] || 0;
+    layer.style.height = `${heightPct}%`;
+    layer.style.bottom = `${offset}%`;
+    layer.style.opacity = heightPct > 0 ? "1" : "0";
+    offset += heightPct;
+  });
+}
+
+function playBuilderFillAnimation(layerHeights) {
   if (!builderSection || !builderCard || !builderSection.classList.contains("is-builder-active")) {
+    applyBuilderLayerHeights(layerHeights);
     return;
   }
 
+  window.clearTimeout(builderAnimationTimeout);
   builderCard.classList.remove("is-refilling");
-  window.requestAnimationFrame(() => builderCard.classList.add("is-refilling"));
+
+  window.requestAnimationFrame(() => {
+    builderCard.classList.add("is-refilling");
+    window.requestAnimationFrame(() => {
+      applyBuilderLayerHeights(layerHeights);
+      builderAnimationTimeout = window.setTimeout(() => {
+        builderCard.classList.remove("is-refilling");
+      }, 760);
+    });
+  });
 }
 
 function updateBuilder({ animate = false } = {}) {
@@ -347,10 +373,6 @@ function updateBuilder({ animate = false } = {}) {
   const caffeine = selections.reduce((sum, item) => sum + item.caffeine, 0);
   const totalHeight = selections.reduce((sum, item) => sum + item.layer, 0) || 1;
 
-  if (animate) {
-    playBuilderFillAnimation();
-  }
-
   if (builderName) {
     const suffix = syrup.label === 'No Syrup' && topping.label === 'No Topping'
       ? `${milk.label}`
@@ -362,24 +384,18 @@ function updateBuilder({ animate = false } = {}) {
   if (builderStatSugar) builderStatSugar.textContent = `${sugar}g`;
   if (builderStatCaffeine) builderStatCaffeine.textContent = `${caffeine}mg`;
 
-  const layerValues = {
-    coffee: base.layer,
-    milk: milk.layer,
-    syrup: syrup.layer,
-    topping: topping.layer,
+  const layerHeights = {
+    coffee: (base.layer / totalHeight) * 100,
+    milk: (milk.layer / totalHeight) * 100,
+    syrup: (syrup.layer / totalHeight) * 100,
+    topping: (topping.layer / totalHeight) * 100,
   };
 
-  let offset = 0;
-  ["coffee", "milk", "syrup", "topping"].forEach((key) => {
-    const layer = builderLayers[key];
-    if (!layer) return;
-    const height = layerValues[key];
-    const heightPct = (height / totalHeight) * 100;
-    layer.style.height = `${heightPct}%`;
-    layer.style.bottom = `${offset}%`;
-    layer.style.opacity = height > 0 ? '1' : '0';
-    offset += heightPct;
-  });
+  if (animate) {
+    playBuilderFillAnimation(layerHeights);
+  } else {
+    applyBuilderLayerHeights(layerHeights);
+  }
 }
 
 if (builderGroups.length) {
